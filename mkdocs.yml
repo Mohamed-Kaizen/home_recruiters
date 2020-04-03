@@ -1,0 +1,34 @@
+site_name: Home Recruiters
+site_description: Every person needs help from other professionals be it electricians, plumbers, mechanics or any other. This project is a quick and easy way for people(recruiters) to connect with skilled people who think are a good fit and hire them
+site_author: Leulseged Tariku & Mohamed Nesredin
+
+theme:
+  name: material
+
+repo_url: https://github.com/Mohamed-Kaizen/home_recruiters
+
+nav:
+ - Home: 'index.md'
+
+
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: Link
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+  - codehilite:
+      guess_lang: true
+      linenums: true
