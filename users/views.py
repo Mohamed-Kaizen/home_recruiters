@@ -6,7 +6,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 from starlette import status
 from tortoise.contrib.fastapi import HTTPNotFoundError
 
-from . import schema, services, utils, models
+from . import schema, services, utils, models, interfaces
 
 router = APIRouter()
 
@@ -109,6 +109,11 @@ async def add_worker(user_input: schema.WorkerCreate) -> Dict[str, Any]:
         "phone_number": user.phone_number,
         "career": user.career,
     }
+
+
+@router.get("/workers/{username}/task/")
+async def get_worker_tasks(username: str):
+    return await interfaces.IssueTaskInterfaces().get_all_issue_task(username=username)
 
 
 @router.get(

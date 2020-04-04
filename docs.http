@@ -26,6 +26,16 @@ Content-Type: application/json
 }
 
 
+### workers detail
+GET http://127.0.0.1:8000/users/workers/mohamed1/
+Content-Type: application/json
+
+
+### workers tasks
+GET http://127.0.0.1:8000/users/workers/mohamed1/task/
+Content-Type: application/json
+
+
 ### Customer Login
 POST http://127.0.0.1:8000/users/login/
 Content-Type: application/x-www-form-urlencoded
@@ -115,6 +125,13 @@ Authorization: Bearer {{worker_auth_token}}
 ### detail offer
 
 GET http://127.0.0.1:8000/jobs/offer/{{offer_uuid}}/
+Content-Type: application/json
+Authorization: Bearer {{worker_auth_token}}
+
+
+### accept job
+
+POST http://127.0.0.1:8000/jobs/{{issue_uuid}}/accept/
 Content-Type: application/json
 Authorization: Bearer {{worker_auth_token}}
 
