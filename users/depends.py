@@ -46,6 +46,29 @@ async def current_customer(token: str = Depends(settings.OAUTH2_SCHEME)) -> User
     return user
 
 
+async def current_worker(token: str = Depends(settings.OAUTH2_SCHEME)) -> User:
+
+    token_data = utils.verified_token(token)
+
+    user = await services.UserServices().get_user_by_username(
+        username=token_data.username
+    )
+
+    if user is None:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid authentication credentials",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+
+    if not user.is_worker:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="You are not Worker",
+        )
+
+    return user
+
+
 # async def current_user_by_uuid(token: str = Depends(settings.OAUTH2_SCHEME)) -> User:
 #
 #     token_data = utils.verified_token(token)

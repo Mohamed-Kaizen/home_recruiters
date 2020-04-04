@@ -26,21 +26,30 @@ Content-Type: application/json
 }
 
 
-### Login
+### Customer Login
 POST http://127.0.0.1:8000/users/login/
 Content-Type: application/x-www-form-urlencoded
 
 username=mohamed&password=1234567899mnm
 
 
-> {% client.global.set("auth_token", response.body.access_token); %}
+> {% client.global.set("customer_auth_token", response.body.access_token); %}
+
+### Worker Login
+POST http://127.0.0.1:8000/users/login/
+Content-Type: application/x-www-form-urlencoded
+
+username=mohamed1&password=1234567899mnm
+
+
+> {% client.global.set("worker_auth_token", response.body.access_token); %}
 
 
 ### create job
 
 POST http://127.0.0.1:8000/jobs/
 Content-Type: application/json
-Authorization: Bearer {{auth_token}}
+Authorization: Bearer {{customer_auth_token}}
 
 {
   "title": "fgdgf",
@@ -76,10 +85,37 @@ Content-Type: application/json
 
 POST http://127.0.0.1:8000/jobs/{{issue_uuid}}/
 Content-Type: application/json
-Authorization: Bearer {{auth_token}}
+Authorization: Bearer {{customer_auth_token}}
 
 {
   "is_open": true
 }
+
+
+### crate offer
+
+POST http://127.0.0.1:8000/jobs/offer/
+Content-Type: application/json
+Authorization: Bearer {{customer_auth_token}}
+
+{
+  "username": "mohamed1",
+  "description": "zzzzzzzzzzzzzzzz"
+}
+
+### list offer
+
+GET http://127.0.0.1:8000/jobs/offer/
+Content-Type: application/json
+Authorization: Bearer {{worker_auth_token}}
+
+> {% client.global.set("offer_uuid", response.body[0].offer_uuid); %}
+
+
+### detail offer
+
+GET http://127.0.0.1:8000/jobs/offer/{{offer_uuid}}/
+Content-Type: application/json
+Authorization: Bearer {{worker_auth_token}}
 
 ###

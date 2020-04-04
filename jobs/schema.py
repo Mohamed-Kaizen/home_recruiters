@@ -33,3 +33,10 @@ class CreateIssue(BaseModel):
 class UpdateIssue(BaseModel):
 
     is_open: bool
+
+
+class CreateOffer(BaseModel):
+
+    username: str
+
+    description: str

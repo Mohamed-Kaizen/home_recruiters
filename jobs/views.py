@@ -16,13 +16,11 @@ async def add_issue(
     user_input: schema.CreateIssue, auth_user: interfaces.current_customer = Depends()
 ) -> Dict[str, Any]:
 
-    question = await services.IssueService().create_issue(
-        issue=user_input, user=auth_user
-    )
+    issue = await services.IssueService().create_issue(issue=user_input, user=auth_user)
 
-    customer = await question.customer
+    customer = await issue.customer
 
-    return {"title": question.title, "customer": customer.username}
+    return {"title": issue.title, "customer": customer.username}
 
 
 @router.get("/", description="Get ALL Issue")
@@ -49,6 +47,59 @@ async def list_of_open_issue() -> List[Dict[str, Any]]:
         )
 
     return issues_list
+
+
+@router.post(
+    "/offer/", status_code=status.HTTP_201_CREATED, description="Creating New Offer",
+)
+async def add_offer(
+    user_input: schema.CreateOffer, auth_user: interfaces.current_customer = Depends()
+) -> Dict[str, Any]:
+
+    offer = await services.OfferService().create_offer(offer=user_input, user=auth_user)
+
+    return {"customer": offer.from_customer, "worker": offer.to_worker}
+
+
+@router.get("/offer/")
+async def get_all_offer(auth_user: interfaces.current_worker = Depends()):
+
+    offers = await services.OfferService().get_offers(user=auth_user)
+
+    offers_list = []
+
+    for offer in offers:
+
+        offers_list.append(
+            {
+                "offer_uuid": offer.offer_uuid,
+                "user": offer.to_worker,
+                "customer": offer.from_customer,
+                "worker_has_read_it": offer.worker_has_read_it,
+                "created_at": offer.created_at,
+            }
+        )
+
+    return offers_list
+
+
+@router.get("/offer/{offer_uuid}/")
+async def get_all_offer(
+    offer_uuid: str, auth_user: interfaces.current_worker = Depends()
+):
+
+    offer = await services.OfferService().get_offer(
+        offer_uuid=offer_uuid, user=auth_user
+    )
+
+    return {
+        "offer_uuid": offer.offer_uuid,
+        "user": offer.to_worker,
+        "description": offer.description,
+        "customer": offer.from_customer,
+        "worker_has_read_it": offer.worker_has_read_it,
+        "created_at": offer.created_at,
+    }
 
 
 @router.post("/{issue_uuid}/", status_code=status.HTTP_200_OK)

@@ -3,8 +3,9 @@ from typing import List
 from fastapi import HTTPException, status
 from tortoise import exceptions as tortoise_exceptions
 
-from .models import Issue, Issue_Pydantic
-from .schema import CreateIssue
+from .interfaces import UserInterfaces
+from .models import Issue, Issue_Pydantic, Offer
+from .schema import CreateIssue, CreateOffer
 
 
 class IssueService:
@@ -43,3 +44,34 @@ class IssueService:
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail=f"Question with {issue.title} already exists.",
             )
+
+
+class OfferService:
+    @staticmethod
+    async def create_offer(*, offer: CreateOffer, user) -> Offer:
+
+        worker = await UserInterfaces().get_user(username=offer.username)
+
+        offer = await Offer.create(
+            from_customer=user.username,
+            description=offer.description,
+            to_worker=worker.username,
+        )
+
+        return offer
+
+    @staticmethod
+    async def get_offers(*, user) -> List[Offer]:
+
+        return await Offer.filter(to_worker=user.username)
+
+    @staticmethod
+    async def get_offer(*, offer_uuid: str, user) -> Offer:
+
+        offer = await Offer.get(offer_uuid=offer_uuid, to_worker=user.username)
+
+        offer.worker_has_read_it = True
+
+        await offer.save()
+
+        return offer

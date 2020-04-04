@@ -54,4 +54,24 @@ class Issue(models.Model):
         return f"{self.title}"
 
 
+class Offer(models.Model):
+
+    offer_uuid = fields.UUIDField(unique=True, default=uuid.uuid4)
+
+    from_customer = fields.CharField(max_length=255)
+
+    to_worker = fields.CharField(max_length=255)
+
+    description = fields.TextField()
+
+    worker_has_read_it = fields.BooleanField(default=False)
+
+    created_at = fields.DatetimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return f"{self.from_customer}--{self.to_worker}"
+
+
 Issue_Pydantic = pydantic_model_creator(Issue, name="Issue")
+
+Offer_Pydantic = pydantic_model_creator(Offer, name="Offer")

@@ -47,6 +47,11 @@ class UserServices:
         )
 
     @staticmethod
+    async def get_worker(*, username: str):
+
+        return await User.get(username=username, is_worker=True)
+
+    @staticmethod
     async def get_user_by_username(*, username: str) -> Optional[User]:
 
         try:
