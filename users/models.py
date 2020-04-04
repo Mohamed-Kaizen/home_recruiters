@@ -49,7 +49,7 @@ class User(models.Model):
         default=False, description="Designates whether the user is customer.", null=True
     )
 
-    date_joined = fields.DatetimeField(default=pendulum.now())
+    date_joined = fields.DatetimeField(auto_now_add=True)
 
     def __str__(self) -> str:
         return f"{self.username}"
