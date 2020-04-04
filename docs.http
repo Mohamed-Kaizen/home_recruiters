@@ -71,5 +71,15 @@ Content-Type: application/json
 GET http://127.0.0.1:8000/jobs/{{issue_uuid}}/
 Content-Type: application/json
 
-###
 
+### change  job state
+
+POST http://127.0.0.1:8000/jobs/{{issue_uuid}}/
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "is_open": true
+}
+
+###

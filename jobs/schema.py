@@ -28,3 +28,8 @@ class CreateIssue(BaseModel):
     is_negotiable: bool
 
     is_open: bool
+
+
+class UpdateIssue(BaseModel):
+
+    is_open: bool

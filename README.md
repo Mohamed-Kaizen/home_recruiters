@@ -42,7 +42,7 @@ enjoy :)
 - [ ] customers search for Worker and see their reviews and old work
 - [ ] Workers search for work post and accept the offer and send contact information to thr customers
 - [x] customers creat work post with there problems, time to come and mount of money they are willing to pay
-- [ ] customers close work if they change there mind
+- [x] customers close work if they change there mind
 - [ ] customers send work request for specific worker and wait for respond
 - [ ] Workers receive the work offer and accept/reject the offer and send auto message to the customers
 - [ ] once Workers accept the job customers can't closed

@@ -1,10 +1,10 @@
 from typing import Any, Dict, List
 
-from fastapi import APIRouter, Depends
-from starlette import status
+from fastapi import APIRouter, Depends, HTTPException, status
 from tortoise.contrib.fastapi import HTTPNotFoundError
 
 from . import interfaces, models, schema, services
+from .models import Issue
 
 router = APIRouter()
 
@@ -49,6 +49,24 @@ async def list_of_open_issue() -> List[Dict[str, Any]]:
         )
 
     return issues_list
+
+
+@router.post("/{issue_uuid}/", status_code=status.HTTP_200_OK)
+async def update_issue_state(
+    issue_uuid: str,
+    user_input: schema.UpdateIssue,
+    auth_user: interfaces.current_customer = Depends(),
+):
+    has_updated = await Issue.filter(issue_uuid=issue_uuid, customer=auth_user).update(
+        **user_input.dict(exclude_unset=True)
+    )
+
+    if not has_updated:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="You are not the owner",
+        )
+
+    return {"detail": "The issue has been updated"}
 
 
 @router.get(

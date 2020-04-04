@@ -4,8 +4,9 @@ from core.settings import settings
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
 from starlette import status
+from tortoise.contrib.fastapi import HTTPNotFoundError
 
-from . import schema, services, utils
+from . import schema, services, utils, models
 
 router = APIRouter()
 
@@ -108,3 +109,12 @@ async def add_worker(user_input: schema.WorkerCreate) -> Dict[str, Any]:
         "phone_number": user.phone_number,
         "career": user.career,
     }
+
+
+@router.get(
+    "/workers/{username}/",
+    response_model=models.User_Pydantic,
+    responses={404: {"model": HTTPNotFoundError}},
+)
+async def get_worker(username: str):
+    return await services.UserServices().get_worker_by_username(username=username)

@@ -3,7 +3,7 @@ from typing import Dict, List, Optional
 from fastapi import HTTPException, status
 from tortoise import exceptions as tortoise_exceptions
 
-from .models import User
+from .models import User, User_Pydantic
 from .schema import CustomerCreate, WorkerCreate
 from .utils import create_password_hash, verify_password
 
@@ -38,6 +38,13 @@ class UserServices:
             return None
 
         return user
+
+    @staticmethod
+    async def get_worker_by_username(*, username: str):
+
+        return await User_Pydantic.from_queryset_single(
+            User.get(username=username, is_worker=True)
+        )
 
     @staticmethod
     async def get_user_by_username(*, username: str) -> Optional[User]:
