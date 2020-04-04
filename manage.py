@@ -53,6 +53,7 @@ def createuser():
                 "is_superuser": is_superuser,
                 "is_staff": is_staff,
                 "is_active": is_active,
+                "phone_number": "0923275406",
             }
         )
     )

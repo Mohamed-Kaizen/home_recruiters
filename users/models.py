@@ -1,8 +1,15 @@
 import uuid
+from enum import Enum
 
 import pendulum
 from tortoise import fields, models
 from tortoise.contrib.pydantic import pydantic_model_creator
+
+
+class Career(str, Enum):
+    Electricians = "Electricians"
+    Plumbers = "Plumbers"
+    Mechanics = "Mechanics"
 
 
 class User(models.Model):
@@ -15,7 +22,9 @@ class User(models.Model):
 
     password = fields.CharField(max_length=512)
 
-    full_name = fields.TextField(max_length=400)
+    full_name = fields.TextField()
+
+    phone_number = fields.CharField(max_length=10, unique=True)
 
     is_superuser = fields.BooleanField(default=False)
 
@@ -29,6 +38,8 @@ class User(models.Model):
         description=""""Designates whether this user should be treated as active.
             Unselect this instead of deleting accounts.""",
     )
+
+    career = fields.CharEnumField(enum_type=Career, max_length=200, null=True)
 
     is_worker = fields.BooleanField(
         default=False, description="Designates whether the user is worker.", null=True
