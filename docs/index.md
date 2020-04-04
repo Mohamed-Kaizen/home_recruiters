@@ -3,6 +3,9 @@
 >
 > See the list of Known Issues and TODOs, below, for updates.
 
+
+[Online Docs][Docs]
+
 ## Overview
 
 Every person needs help from other professionals be it electricians, plumbers, mechanics or any other. This project is a quick and easy way for people(recruiters) to connect with skilled people who think are a good fit and hire them
@@ -35,7 +38,7 @@ enjoy :)
 
 ## TODOs
 
-- [ ] Sign IN & Sign UP customers and Workers 
+- [x] Sign IN & Sign UP customers and Workers 
 - [ ] customers search for Worker and see their reviews and old work
 - [ ] Workers search for work post and accept the offer and send contact information to thr customers
 - [ ] customers creat work post with there problems, time to come and mount of money they are willing to pay
@@ -52,3 +55,4 @@ enjoy :)
 
 
 [Home Recruiters]: https://github.com/Mohamed-Kaizen/home_recruiters
+[Docs]: https://mohamed-kaizen.github.io/home_recruiters/

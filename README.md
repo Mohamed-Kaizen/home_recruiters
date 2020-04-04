@@ -38,7 +38,7 @@ enjoy :)
 
 ## TODOs
 
-- [ ] Sign IN & Sign UP customers and Workers 
+- [x] Sign IN & Sign UP customers and Workers 
 - [ ] customers search for Worker and see their reviews and old work
 - [ ] Workers search for work post and accept the offer and send contact information to thr customers
 - [ ] customers creat work post with there problems, time to come and mount of money they are willing to pay
