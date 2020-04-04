@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from starlette.middleware.cors import CORSMiddleware
 from tortoise.contrib.fastapi import register_tortoise
+from users import views as users_views
 
 from .settings import settings
 from .templates import html
@@ -35,3 +36,6 @@ register_tortoise(
 @app.get("/rapidoc/")
 async def rapi_doc():
     return HTMLResponse(html)
+
+
+app.include_router(users_views.router, prefix="/users")
