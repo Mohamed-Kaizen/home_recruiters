@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
+from jobs import views as jobs_views
 from starlette.middleware.cors import CORSMiddleware
 from tortoise.contrib.fastapi import register_tortoise
 from users import views as users_views
@@ -39,3 +40,4 @@ async def rapi_doc():
 
 
 app.include_router(users_views.router, prefix="/users")
+app.include_router(jobs_views.router, prefix="/jobs")

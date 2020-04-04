@@ -31,7 +31,7 @@ class Settings(BaseSettings):
 
     DATABASE_URL: str = "sqlite://./db.sqlite3"
 
-    DB_MODELS: List[str] = ["users.models"]
+    DB_MODELS: List[str] = ["users.models", "jobs.models"]
 
     CORS_ORIGINS: List[str] = ["*"]
 
@@ -57,7 +57,7 @@ class Settings(BaseSettings):
 
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
 
-    OAUTH2_SCHEME: None = OAuth2PasswordBearer(tokenUrl="/users/login/")
+    OAUTH2_SCHEME = OAuth2PasswordBearer(tokenUrl="/users/login/")
 
     User_MODEL: str = "users.models.User"
 
