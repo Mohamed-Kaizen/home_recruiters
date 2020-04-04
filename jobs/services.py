@@ -4,7 +4,7 @@ from fastapi import HTTPException, status
 from tortoise import exceptions as tortoise_exceptions
 
 from .interfaces import UserInterfaces
-from .models import Issue, Issue_Pydantic, Offer
+from .models import Issue, Issue_Pydantic, Offer, IssueTask
 from .schema import CreateIssue, CreateOffer
 
 
@@ -18,6 +18,10 @@ class IssueService:
         return await Issue_Pydantic.from_queryset_single(
             Issue.get(issue_uuid=issue_uuid)
         )
+
+    @staticmethod
+    async def get_user_issue(*, issue_uuid: str):
+        return await Issue.get(issue_uuid=issue_uuid)
 
     @staticmethod
     async def create_issue(*, issue: CreateIssue, user) -> Issue:
@@ -75,3 +79,21 @@ class OfferService:
         await offer.save()
 
         return offer
+
+
+class IssueTaskService:
+
+    @staticmethod
+    async def create_issue_task(*, issue_uuid: str, user) -> IssueTask:
+
+        issue = await IssueService().get_user_issue(issue_uuid=issue_uuid)
+
+        customer = await issue.customer
+
+        issue_task = await IssueTask.create(
+            customer=customer.username,
+            issue=issue,
+            worker=user.username,
+        )
+
+        return issue_task

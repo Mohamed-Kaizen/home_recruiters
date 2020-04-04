@@ -102,6 +102,18 @@ async def get_all_offer(
     }
 
 
+@router.post("/{issue_uuid}/accept/", status_code=status.HTTP_201_CREATED)
+async def accept_issue(
+    issue_uuid: str, auth_user: interfaces.current_worker = Depends()
+):
+
+    await services.IssueTaskService().create_issue_task(
+        issue_uuid=issue_uuid, user=auth_user
+    )
+
+    return {"detail": "You have accepted the issue"}
+
+
 @router.post("/{issue_uuid}/", status_code=status.HTTP_200_OK)
 async def update_issue_state(
     issue_uuid: str,

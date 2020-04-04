@@ -54,6 +54,28 @@ class Issue(models.Model):
         return f"{self.title}"
 
 
+class IssueTask(models.Model):
+
+    issue_worker_uuid = fields.UUIDField(unique=True, default=uuid.uuid4)
+
+    customer = fields.CharField(max_length=255)
+
+    worker = fields.CharField(max_length=255)
+
+    issue = fields.ForeignKeyField(
+        "models.Issue", related_name="issues_task", on_delete=fields.CASCADE
+    )
+
+    is_done_by_customer = fields.BooleanField(default=False)
+
+    is_done_by_worker = fields.BooleanField(default=False)
+
+    created_at = fields.DatetimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return f"{self.issue_worker_uuid}"
+
+
 class Offer(models.Model):
 
     offer_uuid = fields.UUIDField(unique=True, default=uuid.uuid4)
@@ -75,3 +97,5 @@ class Offer(models.Model):
 Issue_Pydantic = pydantic_model_creator(Issue, name="Issue")
 
 Offer_Pydantic = pydantic_model_creator(Offer, name="Offer")
+
+IssueTask_Pydantic = pydantic_model_creator(IssueTask, name="IssueTask")
