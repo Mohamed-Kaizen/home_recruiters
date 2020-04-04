@@ -7,6 +7,12 @@ from . import validators
 from .models import Career
 
 
+class TokenData(BaseModel):
+    username: str
+    exp: int
+    user_uuid: str
+
+
 class WorkerCreate(BaseModel):
 
     username: str = Field(..., min_length=1, max_length=250)

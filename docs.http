@@ -1,0 +1,75 @@
+### create customer
+POST http://127.0.0.1:8000/users/customers/
+Content-Type: application/json
+
+{
+  "username": "mohamed",
+  "password": "1234567899mnm",
+  "email": "mohamed@mohamed.com",
+  "full_name": "mohamed",
+  "phone_number": "1234567899"
+}
+
+
+### create workers
+POST http://127.0.0.1:8000/users/workers/
+Content-Type: application/json
+
+{
+  "username": "mohamed1",
+  "password": "1234567899mnm",
+  "email": "mohame1d@mohamed.com",
+  "full_name": "mohamed",
+  "phone_number": "1234567799",
+  "career": "Electricians"
+
+}
+
+
+### Login
+POST http://127.0.0.1:8000/users/login/
+Content-Type: application/x-www-form-urlencoded
+
+username=mohamed&password=1234567899mnm
+
+
+> {% client.global.set("auth_token", response.body.access_token); %}
+
+
+### create job
+
+POST http://127.0.0.1:8000/jobs/
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "title": "fgdgf",
+  "description": "mohamedaaaaaa",
+  "city": "Addis Ababa",
+  "sub_city": "Lafto",
+  "time_to_come_from": "2020-04-04T09:09:42.868Z",
+  "time_to_come_to": "2020-04-04T09:12:42.868Z",
+  "amount_from": 0,
+  "amount_to": 0,
+  "is_negotiable": true,
+  "is_open": true
+}
+
+
+### List job
+
+GET http://127.0.0.1:8000/jobs/
+Content-Type: application/json
+
+> {% client.global.set("issue_uuid", response.body[0].issue_uuid); %}
+
+
+###
+
+### detial job
+
+GET http://127.0.0.1:8000/jobs/{{issue_uuid}}/
+Content-Type: application/json
+
+###
+
