@@ -1006,7 +1006,7 @@ category = "main"
 description = "YAML parser and emitter for Python"
 name = "pyyaml"
 optional = false
-python-versions = "*"
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 version = "5.3.1"
 
 [[package]]
@@ -1141,7 +1141,7 @@ description = "Easy async ORM for python, built with relations in mind"
 name = "tortoise-orm"
 optional = false
 python-versions = "*"
-version = "0.16.4"
+version = "0.16.6"
 
 [package.dependencies]
 aiosqlite = ">=0.11.0"
@@ -1283,7 +1283,7 @@ version = "1.0.1"
 dev = ["pytest (>=4.6.2)", "black (>=19.3b0)"]
 
 [metadata]
-content-hash = "2fe38b681f60581ae93dcd46f083f033990c1b10e82c32542d6e1b774007e48f"
+content-hash = "32a6db53773cc73f3d09e5dcc1d6545074bd68194a301824e6737cef20d3d4e7"
 python-versions = "3.8.2"
 
 [metadata.files]
@@ -1882,7 +1882,7 @@ tornado = [
     {file = "tornado-6.0.4.tar.gz", hash = "sha256:0fe2d45ba43b00a41cd73f8be321a44936dc1aba233dee979f17a042b83eb6dc"},
 ]
 tortoise-orm = [
-    {file = "tortoise-orm-0.16.4.tar.gz", hash = "sha256:b59a734a0983e7325fdce2ed42612427c9b3d134e83b45e2de080862a8854c77"},
+    {file = "tortoise-orm-0.16.6.tar.gz", hash = "sha256:e5fa256f9bac59b614d0afa9de2c8f2de0cd31bb018b0006bcd44fd8f4e0fc5b"},
 ]
 typed-ast = [
     {file = "typed_ast-1.4.1-cp35-cp35m-manylinux1_i686.whl", hash = "sha256:73d785a950fc82dd2a25897d525d003f6378d1cb23ab305578394694202a58c3"},
